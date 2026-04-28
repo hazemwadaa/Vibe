@@ -1,0 +1,430 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Team 12 - VIBE Security Center</title>
+
+<style>
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:Arial, sans-serif;
+}
+
+body{
+background:#0b1220;
+color:white;
+overflow-x:hidden;
+}
+
+/* LOGIN */
+#loginPage{
+height:100vh;
+display:flex;
+justify-content:center;
+align-items:center;
+background:linear-gradient(135deg,#0f172a,#1e293b);
+}
+
+.login-box{
+width:380px;
+background:#111827;
+padding:35px;
+border-radius:20px;
+box-shadow:0 0 30px rgba(0,0,0,.5);
+text-align:center;
+}
+
+.login-box h1{
+color:#38bdf8;
+margin-bottom:10px;
+font-size:32px;
+}
+
+.login-box p{
+color:#94a3b8;
+margin-bottom:20px;
+}
+
+.login-box input{
+width:100%;
+padding:13px;
+margin:10px 0;
+border:none;
+border-radius:10px;
+outline:none;
+}
+
+.login-box button{
+width:100%;
+padding:13px;
+margin-top:10px;
+border:none;
+border-radius:10px;
+background:#38bdf8;
+font-size:18px;
+font-weight:bold;
+cursor:pointer;
+}
+
+.error{
+margin-top:10px;
+color:#ef4444;
+}
+
+/* APP */
+#dashboard{
+display:none;
+min-height:100vh;
+}
+
+.layout{
+display:flex;
+}
+
+/* Sidebar */
+.sidebar{
+width:250px;
+min-height:100vh;
+background:#111827;
+padding:20px;
+border-right:1px solid #1e293b;
+position:sticky;
+top:0;
+}
+
+.logo{
+font-size:28px;
+font-weight:bold;
+color:#38bdf8;
+text-align:center;
+margin-bottom:8px;
+}
+
+.sublogo{
+text-align:center;
+color:#94a3b8;
+font-size:14px;
+margin-bottom:25px;
+}
+
+.menu button{
+width:100%;
+padding:14px;
+margin-bottom:10px;
+border:none;
+border-radius:12px;
+background:#1e293b;
+color:white;
+cursor:pointer;
+font-size:16px;
+text-align:left;
+}
+
+.menu button:hover{
+background:#38bdf8;
+color:#000;
+}
+
+/* Main */
+.main{
+flex:1;
+padding:22px;
+}
+
+header{
+display:flex;
+justify-content:space-between;
+align-items:center;
+gap:10px;
+margin-bottom:20px;
+flex-wrap:wrap;
+}
+
+header h1{
+font-size:34px;
+}
+
+.clock{
+font-size:24px;
+color:#38bdf8;
+font-weight:bold;
+}
+
+.cards{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+gap:18px;
+}
+
+.card{
+background:#111827;
+padding:18px;
+border-radius:16px;
+box-shadow:0 0 10px rgba(0,0,0,.3);
+}
+
+.card h3{
+color:#cbd5e1;
+font-size:17px;
+}
+
+.value{
+font-size:36px;
+margin-top:10px;
+color:#38bdf8;
+font-weight:bold;
+}
+
+.section{
+margin-top:22px;
+background:#111827;
+padding:20px;
+border-radius:16px;
+}
+
+.section h2{
+margin-bottom:14px;
+}
+
+.alert{
+padding:14px;
+border-radius:12px;
+margin:10px 0;
+font-weight:bold;
+}
+
+.red{background:#dc2626;}
+.orange{background:#f59e0b;color:#111;}
+.green{background:#16a34a;}
+
+.chart{
+display:flex;
+align-items:flex-end;
+gap:14px;
+height:220px;
+margin-top:15px;
+}
+
+.bar{
+width:60px;
+border-radius:12px 12px 0 0;
+background:#38bdf8;
+transition:.5s;
+}
+
+.map{
+height:280px;
+border-radius:16px;
+background:
+linear-gradient(135deg,#0ea5e9,#1e293b);
+display:flex;
+justify-content:center;
+align-items:center;
+font-size:28px;
+font-weight:bold;
+color:white;
+}
+
+.cam-grid{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+gap:16px;
+}
+
+.cam{
+background:#0f172a;
+border:1px solid #1e293b;
+border-radius:14px;
+padding:12px;
+}
+
+.cam-screen{
+height:120px;
+border-radius:12px;
+background:linear-gradient(45deg,#1e293b,#0ea5e9);
+display:flex;
+justify-content:center;
+align-items:center;
+font-weight:bold;
+}
+
+footer{
+margin-top:25px;
+text-align:center;
+color:#94a3b8;
+}
+
+.btn-danger{
+background:#ef4444 !important;
+color:white !important;
+}
+</style>
+</head>
+
+<body>
+
+<!-- LOGIN -->
+<div id="loginPage">
+<div class="login-box">
+<h1>TEAM 12 - VIBE</h1>
+<p>Security Center Access</p>
+
+<input id="username" type="text" placeholder="Username">
+<input id="password" type="password" placeholder="Password">
+
+<button onclick="login()">Login</button>
+
+<div class="error" id="error"></div>
+</div>
+</div>
+
+<!-- DASHBOARD -->
+<div id="dashboard">
+<div class="layout">
+
+<!-- Sidebar -->
+<div class="sidebar">
+<div class="logo">VIBE</div>
+<div class="sublogo">Team 12 Security Center</div>
+
+<div class="menu">
+<button onclick="scrollToSec('dash')">Dashboard</button>
+<button onclick="scrollToSec('cams')">Monitoring</button>
+<button onclick="scrollToSec('alertsSec')">Alerts</button>
+<button onclick="scrollToSec('reports')">Reports</button>
+<button onclick="downloadReport()">Download Report</button>
+<button class="btn-danger" onclick="emergency()">Emergency Shutdown</button>
+<button onclick="logout()">Logout</button>
+</div>
+</div>
+
+<!-- Main -->
+<div class="main">
+
+<header id="dash">
+<h1>Unified Command Center</h1>
+<div class="clock" id="clock"></div>
+</header>
+
+<!-- Cards -->
+<div class="cards">
+<div class="card"><h3>Cameras Online</h3><div class="value" id="camCount">12</div></div>
+<div class="card"><h3>Doors Locked</h3><div class="value" id="doors">8</div></div>
+<div class="card"><h3>Users Online</h3><div class="value" id="users">14</div></div>
+<div class="card"><h3>Temperature</h3><div class="value" id="temp">26°C</div></div>
+<div class="card"><h3>Power Status</h3><div class="value" id="power">ON</div></div>
+<div class="card"><h3>Fire Sensors</h3><div class="value" id="fire">SAFE</div></div>
+</div>
+
+<!-- Cameras -->
+<div class="section" id="cams">
+<h2>Live Monitoring Cameras</h2>
+<div class="cam-grid">
+<div class="cam"><div class="cam-screen">CAM 01 LIVE</div></div>
+<div class="cam"><div class="cam-screen">CAM 02 LIVE</div></div>
+<div class="cam"><div class="cam-screen">CAM 03 LIVE</div></div>
+<div class="cam"><div class="cam-screen">CAM 04 LIVE</div></div>
+</div>
+</div>
+
+<!-- Alerts -->
+<div class="section" id="alertsSec">
+<h2>Real Time Alerts</h2>
+<div class="alert red">⚠ Motion Detected - Zone A</div>
+<div class="alert orange">⚠ Door B3 Opened</div>
+<div class="alert green">✔ All Cameras Recording</div>
+</div>
+
+<!-- Stats -->
+<div class="section">
+<h2>Security Statistics</h2>
+<div class="chart">
+<div class="bar" id="b1"></div>
+<div class="bar" id="b2"></div>
+<div class="bar" id="b3"></div>
+<div class="bar" id="b4"></div>
+<div class="bar" id="b5"></div>
+</div>
+</div>
+
+<!-- Map -->
+<div class="section">
+<h2>Global Status Map</h2>
+<div class="map">Facility Protected & Active</div>
+</div>
+
+<!-- Reports -->
+<div class="section" id="reports">
+<h2>Reports</h2>
+<p>• Daily Activity Logs</p>
+<p>• Security Alerts Summary</p>
+<p>• Cameras Performance</p>
+<p>• Power Usage</p>
+</div>
+
+<footer>
+Team 12 - VIBE Security Center © 2026
+</footer>
+
+</div>
+</div>
+</div>
+
+<script>
+const realUser="admin";
+const realPass="12345";
+
+function login(){
+let u=document.getElementById("username").value;
+let p=document.getElementById("password").value;
+
+if(u===realUser && p===realPass){
+document.getElementById("loginPage").style.display="none";
+document.getElementById("dashboard").style.display="block";
+}else{
+document.getElementById("error").innerText="Wrong Username or Password";
+}
+}
+
+function logout(){
+location.reload();
+}
+
+function scrollToSec(id){
+document.getElementById(id).scrollIntoView({behavior:"smooth"});
+}
+
+function emergency(){
+alert("Emergency Shutdown Activated!");
+document.getElementById("power").innerText="OFF";
+}
+
+function downloadReport(){
+const text="Team 12 - VIBE Security Report\nSystem Stable\nAll Cameras Active";
+const blob=new Blob([text],{type:"text/plain"});
+const a=document.createElement("a");
+a.href=URL.createObjectURL(blob);
+a.download="VIBE_Report.txt";
+a.click();
+}
+
+setInterval(()=>{
+document.getElementById("clock").innerText=new Date().toLocaleTimeString();
+
+document.getElementById("camCount").innerText=Math.floor(Math.random()*4)+10;
+document.getElementById("doors").innerText=Math.floor(Math.random()*8)+1;
+document.getElementById("users").innerText=Math.floor(Math.random()*20)+1;
+document.getElementById("temp").innerText=(Math.floor(Math.random()*10)+20)+"°C";
+
+["b1","b2","b3","b4","b5"].forEach(id=>{
+document.getElementById(id).style.height=(Math.random()*170+40)+"px";
+});
+
+},2000);
+</script>
+
+</body>
+</html>
